@@ -1,17 +1,19 @@
 #include <iostream>
 #include <cstring>
+#include <Windows.h>
 
 using namespace std;
 const int MAX_LEN = 10;
 
 //함수 먼저 선언
+void Loading(void);		// 로딩
 void Menu(void);		// 메뉴
 void Register(void);	// 계좌 생성
 void Input(void);		// 입금
 void Output(void);		// 출금
 void Management(void);	// Management
 
-enum {MAKE = 1, DEPOSIT, WITHDRAW, INQUIRE, EXIT};
+enum {REGISTER = 1, INPUT, OUTPUT, MANAGEMENT, EXIT};
 int accIndex = 0;
 
 typedef struct			// 구조체
@@ -21,7 +23,72 @@ typedef struct			// 구조체
 } Account;				// 구조체 별칭
 Account accArr[100];	// 계좌 저장
 
+int main(void)
+{
+	int start;
 
+	while (true)
+	{
+		Menu();
+		cout << "선택 : ";
+		cin >> start;
+		cout << endl;
+
+		switch (start)
+		{
+		case REGISTER:
+			system("cls");
+			Register();
+			system("cls");
+			break;
+		case INPUT:
+			system("cls");
+			Input();
+			system("cls");
+			break;
+		case OUTPUT:
+			system("cls");
+			Output();
+			system("cls");
+			break;
+		case MANAGEMENT:
+			system("cls");
+			Management();
+			system("pause");
+			system("cls");
+			break;
+		case EXIT:
+			system("cls");
+			cout << "Thank you ~ ▶▶▶▶▶▶▶▶▶▶▶▶ Exit" << endl;
+			return 0;
+		default:
+			cout << " 다시 누르세요." << endl;
+		}
+
+	}
+
+	system("pause");
+	return 0;
+
+}
+
+void Loading(void)
+{
+	cout << endl << " Loading..";
+	Sleep(1000);
+	for (int i = 0; i < 18; i++)
+	{
+		cout << "■";
+		Sleep(50);
+	}
+	cout << endl << "          ";
+	for (int i = 0; i < 18; i++)
+	{
+		cout << "■";
+		Sleep(50);
+	}
+	cout << endl;
+}
 
 void Menu(void)
 {
@@ -32,7 +99,9 @@ void Menu(void)
 	cout << "■ 4. 관      리                            ■" << endl;
 	cout << "■ 5. 종      료                            ■" << endl;
 	cout << "■■■■■■■■■■■■■■■■■■■■■■■" << endl;
-}
+	cout << "----------------------------------------------" << endl;
+
+}	            
 
 void Register(void)
 {
@@ -54,33 +123,14 @@ void Register(void)
 	accArr[accIndex].id = id;
 	accArr[accIndex].balance = balance;
 	strcpy_s(accArr[accIndex].name, name);
+	accIndex++;
 }
-//void loading(void)
-//{
-//	cout << endl;
-//	float progress = 0.0;
-//	while (progress < 1.0) {
-//		int barWidth = 70;
-//
-//		std::cout << "[";
-//		int pos = barWidth * progress;
-//		for (int i = 0; i < barWidth; ++i) {
-//			if (i < pos) std::cout << "=";
-//			else if (i == pos) std::cout << ">";
-//			else std::cout << " ";
-//		}
-//		std::cout << "] " << int(progress * 100.0) << " %\r";
-//		std::cout.flush();
-//
-//		progress += 0.16; // for demonstration only
-//	}
-//	std::cout << std::endl;
-//}
+
 void Input(void)
 {
 	int id, money;
 	cout << "■■■■■■■■■  입    금  ■■■■■■■■" << endl;
-	cout << "■ 1. 계좌    ID                            ■" << endl;
+	cout << "■ 1. 회원    ID                            ■" << endl;
 	cout << "■ 2. 입  금  액                            ■" << endl;
 	cout << "■                                          ■" << endl;
 	cout << "■                                          ■" << endl;
@@ -88,41 +138,107 @@ void Input(void)
 	cout << "■■■■■■■■■■■■■■■■■■■■■■■" << endl;
 	cout << "----------------------------------------------" << endl;
 	cout << " 아이디를 입력하세요 : "; cin >> id; cout << endl;
-	for (int i = 0; i < accIndex; i++)			// ID 인증
+	
+		for (int i = 0; i < accIndex; i++) // ID 인증
+		{
+			if (accArr[i].id == id)
+			{
+	
+				cout << "★인증되었습니다.★" << endl;
+				break;
+			}
+			else
+			{
+				while (1)
+				{
+					cout << " 일치하지 않습니다. 다시 입력하세요. : "; cin >> id; //cout << endl;
+					if (accArr[i].id == id)
+					{
+						cout << " ★인증되었습니다.★" << endl;
+						break;
+					}
+				}
+			}
+		}
+	
+	cout << " 얼마를 입금 할까요? : "; cin >> money; cout << endl;
+	for (int i = 0; i < accIndex; i++)
 	{
 		if (accArr[i].id == id)
 		{
-		//	loading();
+			accArr[i].balance += money;
 		}
 	}
-	cout << " 얼마를 입금 할까요? : "; cin >> money; cout << endl;
+	cout << " 입금이 완료되었습니다." << endl;
 
 }
 
-int main(void)
+void Output(void)
 {
-	int choice;
+	int money, id;
 
-	while (true)
+	cout << "■■■■■■■■■  출    금  ■■■■■■■■" << endl;
+	cout << "■ 1. 회원    ID                            ■" << endl;
+	cout << "■ 2. 출  금  액                            ■" << endl;
+	cout << "■                                          ■" << endl;
+	cout << "■                                          ■" << endl;
+	cout << "■                                          ■" << endl;
+	cout << "■■■■■■■■■■■■■■■■■■■■■■■" << endl;
+	cout << "----------------------------------------------" << endl;
+	cout << " 아이디를 입력하세요 : "; cin >> id; cout << endl;
+
+	for (int i = 0; i < accIndex; i++) // ID 인증
 	{
-		Menu();
-		cout << "선택 : ";
-		cin>>choice;
-		cout << endl;
-
-		switch (choice)
+		if (accArr[i].id == id)
 		{
-		case 1:
-			system("cls");
-			Register();
-		case 2:
-			system("cls");
-			Input();
+			cout << "★인증되었습니다.★" << endl;
+			break;
 		}
+		else
+		{
+			while (1)
+			{
+				cout << " 일치하지 않습니다. 다시 입력하세요. : "; cin >> id; //cout << endl;
+				if (accArr[i].id == id)
+				{
+					cout << " ★인증되었습니다.★" << endl;
+					break;
+				}
+			}
+		}
+	}
+	cout << " 얼마를 출금 할까요? : "; cin >> money; cout << endl;
+	for (int i = 0; i < accIndex; i++)
+	{
+		if (accArr[i].balance < money)
+		{
+			cout << " 잔액이 부족합니다." << endl;
+			Sleep(1000);
+			cout << " 초기 화면으로 돌아갑니다.";
+			Sleep(1000);
+			Loading();
+			system("cls");
+			return;
+		}
+		else
+		{
+			accArr[i].balance -= money;
+			cout << " 출금이 완료되었습니다." << endl;
+		}
+	}
+}
+
+void Management(void)
+{
+	for (int i = 0; i < accIndex; i++)
+	{
+		cout << "I  D : " << accArr[i].id << endl;
+		cout << "이름 : " << accArr[i].name << endl;
+		cout << "잔액 : " << accArr[i].balance << endl;
+		if(i!=accIndex-1)
+		cout << "----------------------------------------------" << endl;
+		
 
 	}
-
-	system("pause");
-	return 0;
-
 }
+
