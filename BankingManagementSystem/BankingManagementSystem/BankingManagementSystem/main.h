@@ -15,6 +15,4 @@ public:
 	void Management() const;
 	~Total();
 };
-
-
 #endif
