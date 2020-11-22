@@ -1,16 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <style>
+       html{
+            max-width: 1000px;
+            margin:auto;
+        }
+        .router, ol {
+            color: gray;
+            text-decoration: none;
+            font-size: 30px;
+        }
+        ol{
+            padding-left: 2em;
+        }
+        
+        h1 {
+            font-size: 45px;
+            color: gray;
+            text-align: center;
+        }
+       
+        a {
+            color: black;
+
+        }
+        a:visited {
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: none;
+        }
+        a:focus {
+            text-decoration: none;
+        }
+        a:hover,
+        a:active {
+            text-decoration: none;
+        }
+        .title{
+            color:gray;
+        }
+        .focus{
+            color:red;
+        }
+        p{
+            text-align: center;
+            font-size: 20px;
+            padding-left: 3em;
+            padding-right:3em;
+            padding-top: 2em;
+        }
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Overview</title>
-    <h1><a href="index.html">Banking Management System</a></h1>
-    <h2><a href="overview.html">1. Overview</a></h2>
-    <h3><a href="video.html">2. Program Demonstration</a></h3>
-    <h3><a href="code.html">3. Description of the Code</a></h3>
-
+    <h1><a href="index.html" class ="title">Banking Management System</a></h1>
+    <ol>
+        <li><a href="overview.html" class="focus">Overview</a></li>
+        <li><a href="video.html">Program Demonstration</a></li>
+        <li><a href="code.html">Description of the Code</a></li>
+    </ol>
+    <hr style="border:solid 5px gray;">
 </head>
+
 <body>
-    
+    <p>
+         What I have made is the "Bank Account Management Program.". 
+        And I call this “Banking Management System”. 
+        It includes the ability to create accounts 
+        and to deposit and withdraw each account and to inquire about 
+        the entire account.This can create large numbers of accounts and dynamically manage the money you own.</br></br>
+        You can check this list. </br>
+        <img src="pics/list.PNG">
+    </p> 
+<p>Furthermore, there are some functions to block exceptions.</br>
+<img src="pics/exception.PNG">
+</p>
+
 </body>
+
 </html>

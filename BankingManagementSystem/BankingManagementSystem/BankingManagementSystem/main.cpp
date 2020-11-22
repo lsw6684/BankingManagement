@@ -7,6 +7,7 @@
 
 using namespace std;
 int c;				//인증 카운트 변수
+int check = 0;		// for checking exceptions
 const int MAX_LEN = 20;
 void Loading(void);		// 로딩 함수 미리 선언.
 
@@ -109,6 +110,7 @@ void Handler::Register(void)
 	cout << " 얼마를 입금 할까요? : "; cin >> balance; cout << endl;
 
 	accArr[accIndex++] = new Total(id, balance, name);
+	check = 1;
 }
 
 void Handler::Input(void)
@@ -129,6 +131,7 @@ void Handler::Input(void)
 	{
 		c = 0;
 		cin >> id; cout << endl;
+
 		for (int i = 0; i < accIndex; i++) // ID 인증
 		{
 			if (accArr[i]->GetID() == id)
@@ -261,16 +264,43 @@ int main(void)
 			system("cls");
 			break;
 		case eINPUT:
+			if (check == 0)
+			{
+				cout << " 존재하는 계좌가 없습니다." << endl;
+				Sleep(1000);
+				cout << " 계좌를 생성하세요.";
+				Loading();
+				system("cls");
+				break;
+			}
 			system("cls");
 			handler.Input();
 			system("cls");
 			break;
 		case eOUTPUT:
+			if (check == 0)
+			{
+				cout << " 존재하는 계좌가 없습니다." << endl;
+				Sleep(1000);
+				cout << " 계좌를 생성하세요.";
+				Loading();
+				system("cls");
+				break;
+			}
 			system("cls");
 			handler.Output();
 			system("cls");
 			break;
 		case eMANAGEMENT:
+			if (check == 0)
+			{
+				cout << " 존재하는 계좌가 없습니다." << endl;
+				Sleep(1000);
+				cout << " 계좌를 생성하세요.";
+				Loading();
+				system("cls");
+				break;
+			}
 			system("cls");
 			handler.Management();
 			system("pause");
